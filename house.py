@@ -20,6 +20,7 @@ plt.show()
 def normalize(array):
     return (array-array.mean()) / array.std()
 
+
 num_train_samples=math.floor(num_house*0.7)
 
 train_house_size=np.asarray(house_size[:num_train_samples])
@@ -29,7 +30,7 @@ train_house_size_norm=normalize(train_house_size)
 train_price_norm=normalize(train_price)
 
 test_house_size=np.array(house_size[num_train_samples:])
-test_house_price=np.asarray(house_price[:num_train_samples:])
+test_house_price=np.asarray(house_price[num_train_samples:])
 
 teset_house_size_norm=normalize(test_house_size)
 test_house_price_norm=normalize(test_house_price)
@@ -79,8 +80,8 @@ with tf.Session() as sess:
     plt.figure()
     plt.ylabel("Price")
     plt.xlabel("Size(sqft)")
-    plt.plot(train_house_size, train_price, 'go', label="Trainning data")
-    plt.plot(test_house_size, test_house_price, 'mo', label="Testing data")
+    plt.plot(train_house_size, train_price, 'go', label='Trainning data')
+    plt.plot(test_house_size, test_house_price, 'mo', label='Testing data')
 
     plt.plot(train_house_size_norm * train_house_size_std + train_house_size_mean, 
     (sess.run(tf_size_factor)*train_house_size_norm + sess.run(tf_price_offset)) * train_price_std+train_price_mean,
